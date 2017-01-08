@@ -1,13 +1,13 @@
 "use strict";
-const homematicRega = require("./homematicRega");
-const homematicRPC = require("./homematicRpc");
+const HomematicRega = require("./lib/homematicRega");
+const HomematicRPC = require("./lib/homematicRpc");
 
 class api {
     constructor(mode, ip, port) {
         if(mode == "rpc") {
-            this.client = new homematicRPC(ip, port);
+            this.call = new HomematicRPC(ip, port);
         } else {
-            this.client = new homematicRega(ip, port);
+            this.call = new HomematicRega(ip, port);
         }
     }
 }

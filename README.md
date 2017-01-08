@@ -11,16 +11,19 @@ npm install homematic-js-api
 - Homematic Remote Script API (hm-Rega)
 
 #####Basic Usage
+
 hm-rega
 ```
-const api = new (require('./index'))('rega','20.1.0.50', "BidCos-RF.");
+const api = new (require('homematic-js-api'))('rega','20.1.0.50', "BidCos-RF.");
 
-api.client.setValue("LEQ123456:1", "LEVEL", "0");
+api.client.getValue("LEQ123456:1", "LEVEL", (error,response) => {
+});
 ```
 xml-rpc
 
 ```
-const api = new (require('./index'))('rpc','20.1.0.50', '2001');
+const api = new (require('homematic-js-api'))('rpc','20.1.0.50', '2001');
 
 api.client.setValue("LEQ123456:1", "LEVEL", "100");
 ```
+find more examples in /test directory
