@@ -1,8 +1,8 @@
 {
   "name": "homematic-js-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Javascript interfaces for Homematic XML-RPC and Homematic Remote Script API (hm-Rega)",
-  "main": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
