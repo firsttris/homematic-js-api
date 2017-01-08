@@ -1,3 +1,4 @@
+"use strict";
 const homematicRega = require("./homematicRega");
 const homematicRPC = require("./homematicRpc");
 

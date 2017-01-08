@@ -1,6 +1,4 @@
-/**
- * Created by Tristan on 08.01.2017.
- */
+"use strict";
 const http = require("http");
 
 class homeMaticRega {
