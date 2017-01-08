@@ -9,5 +9,8 @@ const devices = {
     keymatic: "KEQ1063873:1"
 };
 
-//home.setValue(devices.bedroomDimLight, "LEVEL", "100");
-api.client.setLevel(devices.bedroomDimLight, false);
+api.client.setValue(devices.bedroomDimLight, "LEVEL", "0", (error, response) => {
+    if(error) console.log("homematic-rpc error: "+error);
+    console.log("homematic-rpc response: "+response);
+});
+//api.client.setLevel(devices.bedroomDimLight, false);

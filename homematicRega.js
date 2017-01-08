@@ -9,9 +9,10 @@ class homeMaticRega {
         this.timeout = 60;
     }
 
-    script (script, callback) {
+    sendScript (script, callback) {
         const ls = script;
-
+        let response;
+        let error;
         const config = {
             host: this.ccuIP,
             port: "8181",
@@ -31,58 +32,51 @@ class homeMaticRega {
             });
             res.on("end", function () {
                 const pos = data.lastIndexOf("<xml><exec>");
-                const response = (data.substring(0, pos));
-                console.log("Rega Response: "+response);
-                callback(response);
+                response = (data.substring(0, pos));
+                console.log("Rega Response: " + response);
+                if (callback) callback(error, response);
+
             });
         });
 
 
         httpClient.on("error", function (e) {
+            error = e;
             console.log("Error " + e + "while executing rega script " + ls);
-            callback(undefined);
+            if (callback) callback(error, response);
         });
 
-        httpClient.on("timeout", function (e) {
+        httpClient.on("timeout", function () {
+            error = "timeout";
             console.log("timeout while executing rega script");
-            callback(undefined);
+            if (callback) callback(error, response);
         });
 
         httpClient.setTimeout(60 * 1000);
-        console.log("Write Script: "+script);
+        console.log("Write Script: " + script);
         httpClient.write(script);
         httpClient.end();
     }
 
     getValue (channel, datapoint, callback) {
-        const script = "var d = dom.GetObject(\""+ this.interface + channel + "." + datapoint + "\");if (d){Write(d.State());}";
-        this.script(script, function (data) {
-            if (data !== undefined) {
-                callback(data);
-            }
-        });
+        const script = "var d = dom.GetObject(\"" + this.interface + channel + "." + datapoint + "\");if (d){Write(d.State());}";
+        this.sendScript(script, callback);
     }
 
-    setValue (channel, datapoint, value) {
-        const script = "var d = dom.GetObject(\""+ this.interface + channel + "." + datapoint + "\");if (d){d.State(\"" + value + "\");}";
-        this.script(script, function (data) {
-        });
+    setValue (channel, datapoint, value, callback) {
+        const script = "var d = dom.GetObject(\"" + this.interface + channel + "." + datapoint + "\");if (d){d.State(\"" + value + "\");}";
+        this.sendScript(script, callback);
     }
 
-    setVariable (channel, value) {
-        const script = "var d = dom.GetObject(\""+ this.interface + channel + "\");if (d){d.State(\"" + value + "\");}";
-        this.script(script, function (data) {
-        });
+    setVariable (channel, callback) {
+        const script = "var d = dom.GetObject(\"" + this.interface + channel + "\");if (d){d.State(\"" + value + "\");}";
+        this.sendScript(script, callback);
     }
 
 
     getVariable (channel, callback) {
-        const script = "var d = dom.GetObject(\""+ this.interface + channel + "\");if (d){Write(d.State());}";
-        this.script(script, function (data) {
-            if (data !== undefined) {
-                callback(data);
-            }
-        });
+        const script = "var d = dom.GetObject(\"" + this.interface + channel + "\");if (d){Write(d.State());}";
+        this.sendScript(script, callback);
     }
 
 }

@@ -11,5 +11,5 @@ const devices = {
     keymatic: "KEQ1063873:1"
 };
 
-//home.setValue(devices.keymatic, "OPEN", "1");
-api.client.setValue(devices.bedroomDimLight, "LEVEL", "0");
+//api.client.setValue(devices.keymatic, "OPEN", "1");
+api.client.setValue(devices.bedroomDimLight, "LEVEL", "100");

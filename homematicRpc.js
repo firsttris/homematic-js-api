@@ -110,82 +110,69 @@ class homematicRpc {
     }
 
     getValue (device, attribute, callback) {
-
         this.client.methodCall('getValue', [device, attribute], function (error, response) {
-            console.log("**methodCall: getValue");
-            console.log("**error: " + error);
-            console.log("**response: " + response);
-            callback(response);
+            if(callback) callback(error, response);
         });
-
     }
 
-    setValue (device, attribute, value) {
-
+    setValue (device, attribute, value, callback) {
         this.client.methodCall('setValue', [device, attribute, value], function (error, response) {
-            console.log("**methodCall: setValue");
-            console.log("**error: " + error);
-            console.log("**response: " + response);
+            if(callback) callback(error, response);
         });
-
     }
 
     getState (device, callback) {
-        this.getValue(device, "STATE", function (value) {
-            const isPowerOn = value == "true";
-            callback(isPowerOn);
+        this.getValue(device, "STATE", function (error, response) {
+            const isPowerOn = response == "true";
+            if(callback) callback(isPowerOn);
         });
     }
 
-    setState (device, value) {
+    setState (device, value, callback) {
         const powerOn = value ? "true" : "false";
-        this.setValue(device, "STATE", value);
+        this.setValue(device, "STATE", value, callback);
     }
 
     getLevelPower (device, callback) {
-        this.getValue(device, "LEVEL", function (value) {
-            const isPowerOn = parseFloat(value) > 0;
-            callback(isPowerOn);
+        this.getValue(device, "LEVEL", function (error, response) {
+            const isPowerOn = parseFloat(response) > 0;
+            if(callback) callback(isPowerOn);
         });
     }
 
     getLevel (device, callback) {
-        this.getValue(device, "LEVEL", function (value) {
-            value = parseFloat(value) * 100;
-            callback(value);
+        this.getValue(device, "LEVEL", function (error, response) {
+            let value = parseFloat(response) * 100;
+            if(callback) callback(value);
         });
     }
 
-    setLevel (device, value) {
+    setLevel (device, value, callback) {
         let levelString;
         if (typeof value == "boolean") {
             levelString = value ? "1" : "0";
         } else if (typeof value == "string" || typeof value == "number") {
             levelString = (parseFloat(value) / 100).toString();
         }
-        this.setValue(device, "LEVEL", levelString);
+        this.setValue(device, "LEVEL", levelString, callback);
     }
 
     getTargetTemperature (device, callback) {
-        this.getValue(device, "SET_TEMPERATURE", function (value) {
-            callback(value);
-        });
+        this.getValue(device, "SET_TEMPERATURE", callback);
     }
 
-    setTargetTemperature (device, value) {
-        this.setValue(device, "SET_TEMPERATURE", value.toString());
+    setTargetTemperature (device, value, callback) {
+        this.setValue(device, "SET_TEMPERATURE", value.toString(), callback);
     }
 
     getCurrentTemperature (device, callback) {
-        this.getValue(device, "ACTUAL_TEMPERATURE", function (value) {
-            callback(value);
-        });
+        this.getValue(device, "ACTUAL_TEMPERATURE", callback);
     }
 
     getWindowCoveringPositionState (device, callback) {
-        this.getValue(device, "DIRECTION", function (value) {
+        this.getValue(device, "DIRECTION", function (error, response) {
             let positionState = this.STOPPED;
-            switch (value) {
+            switch (response) {
                 case 1:
                     positionState = this.INCREASING;
                     break;
@@ -193,7 +180,7 @@ class homematicRpc {
                     positionState = this.DECREASING;
                     break;
             }
-            callback(positionState);
+            if(callback) callback(positionState);
         });
     }
 
