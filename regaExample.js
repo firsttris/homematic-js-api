@@ -1,9 +1,7 @@
 /**
  * Created by Tristan on 08.01.2017.
  */
-var homematicRega = require("./homematicRega");
-var home = new homematicRega('20.1.0.50', "BidCos-RF.");
-
+const home = new (require("./homematicRega"))('20.1.0.50', "BidCos-RF.");
 
 const devices = {
     bedroomDimLight: "LEQ0990753:1",
@@ -11,4 +9,4 @@ const devices = {
 };
 
 //home.setValue(devices.keymatic, "OPEN", "1");
-home.setValue(devices.bedroomDimLight, "LEVEL", "100");
+home.setValue(devices.bedroomDimLight, "LEVEL", "0");

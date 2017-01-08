@@ -1,7 +1,7 @@
 /**
  * Created by Tristan on 08.01.2017.
  */
-var http = require("http");
+const http = require("http");
 
 class homeMaticRega {
 
@@ -85,14 +85,6 @@ class homeMaticRega {
                 callback(data);
             }
         });
-    }
-
-    isInt (n) {
-        return Number(n) === n && n % 1 === 0;
-    }
-
-    isFloat (n) {
-        return n === Number(n) && n % 1 !== 0;
     }
 
 }
