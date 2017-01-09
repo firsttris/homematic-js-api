@@ -1,6 +1,6 @@
 {
   "name": "homematic-js-api",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Javascript interfaces for Homematic XML-RPC and Homematic Remote Script API (hm-Rega)",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,15 @@
     "testDimmerRega": "mocha test/dimmer.rega.spec.js",
     "test": "npm run testDimmerRpc && npm run testDimmerRega"
   },
+  "keywords": [
+    "rega",
+    "xml-rpc",
+    "homematic",
+    "internet-of-things",
+    "iot",
+    "javascript",
+    "nodejs"
+  ],
   "author": "Tristan Teufel",
   "license": "ISC",
   "repository": {
