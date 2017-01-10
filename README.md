@@ -2,7 +2,7 @@
 :house: lightweight Javascript interface for Homematic Remote Script API (Rega)
 
 [![npm version](https://badge.fury.io/js/homematic-js-api.svg)](https://badge.fury.io/js/homematic-js-api)
-[![Dependency Status](https://david-dm.org/firsttris/homematic-js-api.svg)](https://david-dm.org/firsttris/homematic-js-api) 
+
 ```
 npm install homematic-js-api
 ```
