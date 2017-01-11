@@ -11,11 +11,10 @@ class HomematicRega extends Homematic {
 
     sendScript (script, callback) {
         const ls = script;
-        let response;
-        let error;
+        let response = "";
+        let error = null;
         const config = {
             host: this.host,
-            port: "8181",
             path: "/tclrega.exe",
             method: "POST",
             headers: {
@@ -24,28 +23,26 @@ class HomematicRega extends Homematic {
             },
         };
 
-        let httpClient = http.request(config, (res) => {
-            res.setEncoding("binary");
+        let httpClient = http.request(config, (result) => {
+            result.setEncoding("binary");
             let data = "";
-            res.on("data", function (chunk) {
+            result.on("data", (chunk) => {
                 data += chunk.toString();
             });
-            res.on("end", function () {
+            result.on("end", () => {
                 const pos = data.lastIndexOf("<xml><exec>");
                 response = (data.substring(0, pos));
                 if (callback) callback(error, response);
             });
         });
 
-        httpClient.on("error", function (e) {
-            error = e;
-            console.log("Error " + e + "while executing rega script " + ls);
+        httpClient.on("error", (error) => {
+            console.log("Error " + error + "while executing rega script " + ls);
             if (callback) callback(error, response);
         });
 
-        httpClient.on("timeout", function () {
+        httpClient.on("timeout", () => {
             error = "timeout";
-            console.log("timeout while executing rega script");
             if (callback) callback(error, response);
         });
 

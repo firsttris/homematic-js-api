@@ -1,6 +1,6 @@
 {
   "name": "homematic-js-api",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "lightweight Javascript interface for Homematic Remote Script API (Rega)",
   "main": "index.js",
   "scripts": {
